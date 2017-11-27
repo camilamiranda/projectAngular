@@ -1,0 +1,18 @@
+<!--<div class="container">-->
+    <!--<div class="col-lg-4 col-md-4 col-sm-4">-->
+        <!--<h1> Song </h1>-->
+        <!--<p class="lead"> Select song from : </p>-->
+        <!--<p class="lead" *ngIf="album"> {{album.name}} </p>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="container">
+    <div class="services" id="song">
+        <h1> Song </h1>
+        <p class="lead"> Select song from : </p>
+        <p class="lead" *ngIf="album"> {{album.name}} </p>
+        <div class="list-group">
+            <a class="list-group-item" *ngFor="let song of listSongs"> {{song.track}} - {{song.name}} </a>
+        </div>
+    </div>
+</div>
