@@ -1,26 +1,23 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
-
+import {HttpModule} from '@angular/http';
+import {RouterModule} from "@angular/router";
 
 import { AppComponent }  from './app.component';
-import {AlbumService} from "./album.service";
-import {AlbumComponent} from "./album.component";
-import {RouterModule} from "@angular/router";
-import {ArtistComponent} from "./artist.component";
-import {SongComponent} from "./song.component";
-import {ArtistService} from "./artist.service";
+import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
+
 
 @NgModule({
-  imports: [BrowserModule, FormsModule,
+  imports: [BrowserModule, FormsModule, HttpModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: '/artists', pathMatch: 'full' },
-      { path: 'artists', component: ArtistComponent },
-      { path: 'album/:artist', component: AlbumComponent },
-      { path: 'song/:artist/:album', component: SongComponent }
+      { path: '', redirectTo: '/', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
     ])],
-  declarations: [AppComponent, ArtistComponent, AlbumComponent, SongComponent],
-  providers: [ ArtistService, AlbumService],
+  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

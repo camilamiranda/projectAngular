@@ -9,13 +9,20 @@ var core_1 = require("@angular/core");
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Super musique infinie';
+        this.isAuthenticated = false;
     }
+    AppComponent.prototype.login = function () {
+        this.isAuthenticated = !this.isAuthenticated;
+    };
+    AppComponent.prototype.logout = function () {
+        this.isAuthenticated = !this.isAuthenticated;
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        templateUrl: './app.component.html',
+        template: "\n    <div class=\"container\">\n        <div *ngIf=\"this.isAuthenticated === false\" class=\"page-header\" id=\"banner\">\n            <button class=\"btn btn-default\" (click)=\"login()\" [routerLink]=\"['/','login']\">Login - R\u00E9cup\u00E9rer le token</button>\n        </div>\n        <div>\n        <button class=\"btn btn-default\" [routerLink]=\"['/','register']\">Enregistrer un nouvel utilisateur</button>\n      </div>\n        <div *ngIf=\"this.isAuthenticated !== false\">\n        <button class=\"btn btn-default\" (click)=\"logout()\" [routerLink]=\"['/','/']\">Logout</button>\n      </div>\n    </div>\n    <router-outlet></router-outlet>\n    ",
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;

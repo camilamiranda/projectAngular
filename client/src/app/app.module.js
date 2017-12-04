@@ -8,13 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
-var app_component_1 = require("./app.component");
-var album_service_1 = require("./album.service");
-var album_component_1 = require("./album.component");
+var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
-var artist_component_1 = require("./artist.component");
-var song_component_1 = require("./song.component");
-var artist_service_1 = require("./artist.service");
+var app_component_1 = require("./app.component");
+var login_component_1 = require("./login/login.component");
+var register_component_1 = require("./register/register.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -22,15 +20,14 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule,
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule,
             router_1.RouterModule.forRoot([
-                { path: '', redirectTo: '/artists', pathMatch: 'full' },
-                { path: 'artists', component: artist_component_1.ArtistComponent },
-                { path: 'album/:artist', component: album_component_1.AlbumComponent },
-                { path: 'song/:artist/:album', component: song_component_1.SongComponent }
+                { path: '', redirectTo: '/', pathMatch: 'full' },
+                { path: 'login', component: login_component_1.LoginComponent },
+                { path: 'register', component: register_component_1.RegisterComponent },
             ])],
-        declarations: [app_component_1.AppComponent, artist_component_1.ArtistComponent, album_component_1.AlbumComponent, song_component_1.SongComponent],
-        providers: [artist_service_1.ArtistService, album_service_1.AlbumService],
+        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent],
+        providers: [],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
