@@ -13,6 +13,7 @@ var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
+var voyage_component_1 = require("./voyage/voyage.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -25,8 +26,9 @@ AppModule = __decorate([
                 { path: '', redirectTo: '/', pathMatch: 'full' },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
+                { path: 'voyage', component: voyage_component_1.VoyageComponent },
             ])],
-        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent],
+        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, voyage_component_1.VoyageComponent],
         providers: [],
         bootstrap: [app_component_1.AppComponent]
     })

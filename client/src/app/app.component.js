@@ -16,6 +16,7 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.logout = function () {
         this.isAuthenticated = !this.isAuthenticated;
+        localStorage.removeItem('Token');
     };
     return AppComponent;
 }());

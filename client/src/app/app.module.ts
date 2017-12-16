@@ -7,6 +7,7 @@ import {RouterModule} from "@angular/router";
 import { AppComponent }  from './app.component';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
+import {VoyageComponent} from "./voyage/voyage.component";
 
 
 @NgModule({
@@ -15,8 +16,9 @@ import {RegisterComponent} from "./register/register.component";
       { path: '', redirectTo: '/', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'voyage', component: VoyageComponent },
     ])],
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, VoyageComponent],
   providers: [ ],
   bootstrap: [AppComponent]
 })

@@ -26,5 +26,6 @@ export class AppComponent {
     }
     logout(): void {
         this.isAuthenticated = !this.isAuthenticated;
+        localStorage.removeItem('Token');
     }
 }

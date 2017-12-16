@@ -21,7 +21,7 @@ import 'rxjs/add/operator/toPromise';
       
     <div class="row">
       <div>
-        <button class="btn btn-default" (click)="login()" [routerLink]="['/','memo']">Authentification</button>
+        <button class="btn btn-default" (click)="login()" [routerLink]="['/','voyage']">Authentification</button>
       </div>
     </div>
     `,
