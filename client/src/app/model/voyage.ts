@@ -1,12 +1,10 @@
-import {Destination} from "./destination";
-export class Voyage{
+import {Destination} from './destination';
+export class Voyage {
     id: string;
     userID: string;
-
     title: string;
-    days:number;
-    budget:number;
+    days: number;
+    budget: number;
     isPublic: boolean;
-    
-    destinations:Destination[];
+    destinations: Destination[];
 }

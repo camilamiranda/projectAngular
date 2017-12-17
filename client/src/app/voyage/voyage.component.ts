@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Voyage} from "../model/voyage";
-import {Destination} from "../model/destination";
+import {Voyage} from '../model/voyage';
+import {Destination} from '../model/destination';
 import {Http, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
@@ -10,9 +10,9 @@ import 'rxjs/add/operator/toPromise';
     selector: 'my-app',
     template: `
 
-<br/><br/>
+<!--<br/><br/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<div class="bgimg">
+<div class="bgimg"/>-->
 
         <div class="container">
             <div class="row">
@@ -119,7 +119,7 @@ import 'rxjs/add/operator/toPromise';
         
     
     
-    <router-outlet></router-outlet>
+    <!--<router-outlet></router-outlet>-->
     
 
     
@@ -154,53 +154,58 @@ import 'rxjs/add/operator/toPromise';
     }
   `],
 })
-export class VoyageComponent implements OnInit{
-    publicVoyages:Voyage[] = [
+export class VoyageComponent implements OnInit {
+    title = '';
+    isPublic: boolean;
+    days: number;
+    budget: number;
+    publicVoyages: Voyage[] = [
         {
-            id:"1",
-            isPublic:true,
-            userID:"1",
-            title:"voyage1",
-            days:7,
-            budget:100
+            id: '1',
+            isPublic: true,
+            userID: '1',
+            title: 'voyage1',
+            days: 7,
+            budget: 100,
+            destinations: []
         }
     ];
-    myVoyage:Voyage[] = [
+    myVoyage: Voyage[] = [
         {
-            id:"1",
-            isPublic:false,
-            userID:"1",
-            title:"voyage1",
-            days:7,
-            budget:100
+            id: '1',
+            isPublic: false,
+            userID: '1',
+            title: 'voyage1',
+            days: 7,
+            budget: 100,
+            destinations: []
         }
     ];
-    destinations:Destination[] = [];
-    failed:boolean = false;
+    destinations: Destination[] = [];
+    failed: boolean = false;
 
-    ngOnInit(){
-        //this.allPublicVoyage();
-        if(this.isLoged())
-        {
-            this.myVoyage();
+    ngOnInit() {
+        // this.allPublicVoyage();
+        if ( this.isLoged()) {
+            this.myVoyageCall();
         }
     }
-    constructor(private http:Http) {
+    constructor(private http: Http) {
     }
 
-    isLoged():boolean {
+    isLoged(): boolean {
         return localStorage.getItem('Token') != null;
     }
 
-    allPublicVoyage():void{
-        this.http.get("http://localhost:11601/api/all").toPromise()
+    allPublicVoyage(): void {
+        this.http.get('http://localhost:11601/api/all').toPromise()
             .then(response => {
                 console.log(response.json());
 
                 this.publicVoyages = response.json();
             });
     }
-    myVoyage():void{
+    myVoyageCall(): void {
         let token = localStorage.getItem('Token');
         let headers = new Headers({
             'Content-Type': 'application/json',
@@ -214,16 +219,15 @@ export class VoyageComponent implements OnInit{
             });
     }
 
-    addDestination(desti:string, ds:number):void{
+    addDestination(desti: string, ds: number): void{
         let newDes = new Destination;
         newDes.destination = desti;
         newDes.days = ds;
         this.destinations.push(newDes);
     }
 
-    addVoyage():void{
-        if(this.isLoged())
-        {
+    addVoyage(): void {
+        if (this.isLoged()) {
             this.failed = false;
 
             let newVoyage = new Voyage();
