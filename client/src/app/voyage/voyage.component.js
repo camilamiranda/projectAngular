@@ -24,8 +24,7 @@ var VoyageComponent = (function () {
                 userID: '1',
                 title: 'voyage1',
                 days: 7,
-                budget: 100,
-                destinations: []
+                budget: 100
             }
         ];
         this.myVoyage = [
@@ -35,8 +34,7 @@ var VoyageComponent = (function () {
                 userID: '1',
                 title: 'voyage1',
                 days: 7,
-                budget: 100,
-                destinations: []
+                budget: 100
             }
         ];
         this.destinations = [];
@@ -87,7 +85,6 @@ var VoyageComponent = (function () {
             newVoyage.isPublic = this.isPublic;
             newVoyage.days = this.days;
             newVoyage.budget = this.budget;
-            newVoyage.destinations = this.destinations;
             var token = localStorage.getItem('Token');
             var headers = new http_1.Headers({
                 'Content-Type': 'application/json',

@@ -89,7 +89,7 @@ import 'rxjs/add/operator/toPromise';
                 <div class="col-md-4">
                     <form>
                         <div class="form-group">
-                            <label for="title">Destination(s) for {{days}}</label>
+                            <label for="title">Destination(s) for {{days}} days</label>
                             <input type="text" [(ngModel)]="destination" name="destination" class="form-control" id="destination">
                         </div>
                     
@@ -166,8 +166,7 @@ export class VoyageComponent implements OnInit {
             userID: '1',
             title: 'voyage1',
             days: 7,
-            budget: 100,
-            destinations: []
+            budget: 100
         }
     ];
     myVoyage: Voyage[] = [
@@ -177,8 +176,7 @@ export class VoyageComponent implements OnInit {
             userID: '1',
             title: 'voyage1',
             days: 7,
-            budget: 100,
-            destinations: []
+            budget: 100
         }
     ];
     destinations: Destination[] = [];
@@ -235,7 +233,6 @@ export class VoyageComponent implements OnInit {
             newVoyage.isPublic = this.isPublic;
             newVoyage.days = this.days;
             newVoyage.budget = this.budget;
-            newVoyage.destinations = this.destinations;
 
 
             let token = localStorage.getItem('Token');
