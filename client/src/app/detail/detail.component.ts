@@ -163,12 +163,12 @@ import {Schedule} from "../model/schedule";
 export class DetailComponent implements OnInit {
     // @Input() oneVoyage: Voyage
 
-    title = oneVoyage.oneVoyage.title;
-    duration = oneVoyage.oneVoyage.duration;
-    budget = oneVoyage.oneVoyage.budget;
-    isPublic = oneVoyage.oneVoyage.isPublic;
+    title = oneVoyage.title;
+    duration = oneVoyage.duration;
+    budget = oneVoyage.budget;
+    isPublic = oneVoyage.isPublic;
 
-    voyageDay:Day[] = oneVoyage.oneVoyage.day;
+    voyageDay:Day[] = oneVoyage.day;
 
     scheduleBudget:number;
     scheduleDestination:string;
@@ -177,6 +177,7 @@ export class DetailComponent implements OnInit {
     ngOnInit() {
         if ( this.isLoged()) {
         }
+        console.log(oneVoyage);
     }
     constructor(private http: Http) {
     }
@@ -200,7 +201,7 @@ export class DetailComponent implements OnInit {
 
     show():void{
         console.log(this.title);
-        console.log(oneVoyage.oneVoyage.title);
+        console.log(oneVoyage.title);
     }
 
     schedule(id:number):void{

@@ -17,15 +17,16 @@ var DetailComponent = (function () {
     function DetailComponent(http) {
         this.http = http;
         // @Input() oneVoyage: Voyage
-        this.title = oneVoyage_1.oneVoyage.oneVoyage.title;
-        this.duration = oneVoyage_1.oneVoyage.oneVoyage.duration;
-        this.budget = oneVoyage_1.oneVoyage.oneVoyage.budget;
-        this.isPublic = oneVoyage_1.oneVoyage.oneVoyage.isPublic;
-        this.voyageDay = oneVoyage_1.oneVoyage.oneVoyage.day;
+        this.title = oneVoyage_1.oneVoyage.title;
+        this.duration = oneVoyage_1.oneVoyage.duration;
+        this.budget = oneVoyage_1.oneVoyage.budget;
+        this.isPublic = oneVoyage_1.oneVoyage.isPublic;
+        this.voyageDay = oneVoyage_1.oneVoyage.day;
     }
     DetailComponent.prototype.ngOnInit = function () {
         if (this.isLoged()) {
         }
+        console.log(oneVoyage_1.oneVoyage);
     };
     DetailComponent.prototype.isLoged = function () {
         return localStorage.getItem('Token') != null;
@@ -45,7 +46,7 @@ var DetailComponent = (function () {
     };
     DetailComponent.prototype.show = function () {
         console.log(this.title);
-        console.log(oneVoyage_1.oneVoyage.oneVoyage.title);
+        console.log(oneVoyage_1.oneVoyage.title);
     };
     DetailComponent.prototype.schedule = function (id) {
         console.log(id);
