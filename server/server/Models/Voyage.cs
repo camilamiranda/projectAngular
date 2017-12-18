@@ -21,7 +21,7 @@ namespace server.Models
 
         [Required]
         [Range(minimum: 0, maximum: 365)]
-        public int Days { get; set; }
+        public int Duration { get; set; }
 
         [Required]
         [Range(minimum: 0, maximum: Double.MaxValue)]
@@ -30,6 +30,6 @@ namespace server.Models
         [Required]
         public bool isPublic { get; set; }
 
-        public Schedule[] Schedule { get; set; }
+        public virtual Day[] Day { get; set; }
     }
 }
