@@ -52,7 +52,7 @@ import {Activity} from "../model/activity";
                 </div>
             </div>
             <div class="col-md-4">
-                <h3>Google Maps</h3>
+                <h3>All destinations</h3>
                 <agm-map [latitude]="lat" [longitude]="lng">
                   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
                 </agm-map>
@@ -106,6 +106,13 @@ import {Activity} from "../model/activity";
                             </div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="col-md-2">
+                <h3>Activities</h3>
+                <agm-map [latitude]="lat" [longitude]="lng">
+                  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
             </div>
         </div>
         <br/>
@@ -326,5 +333,9 @@ export class DetailComponent implements OnInit {
         //     .then(response => {
         //         console.log(response.json());
         //     });
+    }
+
+    getCoordinations(address:string):void{
+        let request = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAhL-yPSfHxIOpLgUlhhj4YoiLRtpBxDsM&address="+address;
     }
 }
