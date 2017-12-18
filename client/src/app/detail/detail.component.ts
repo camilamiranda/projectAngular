@@ -5,6 +5,7 @@ import {Http, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Day} from "../model/day";
 import {oneVoyage} from "./oneVoyage";
+import {Schedule} from "../model/schedule";
 
 
 @Component({
@@ -55,21 +56,18 @@ import {oneVoyage} from "./oneVoyage";
                         <h4>Schedule {{idx + 1}}</h4>      
                             <form>
                                 <div class="form-group">
-                                    <label for="Budget">Budget $</label>
-                                    <div class="getValue">
-                                    <p> {{s.budget}} </p>
-                                    </div>
+                                    <label for="Budget">Budget [{{s.budget}}] $ (enter new value)</label>
                                     <input type="number" [(ngModel)]="scheduleBudget" name="scheduleBudget" class="form-control" id="scheduleBudget" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Destination">Destination</label>
+                                    <label for="Destination">Destination : [{{s.destination}}] (enter new value)</label>
                                     <input type="text" [(ngModel)]="scheduleDestination" name="scheduleDestination" class="form-control" id="scheduleDestination" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Transport">Transport</label>
+                                    <label for="Transport">Transport : [{{s.transport}}] (enter new value)</label>
                                     <input type="text" [(ngModel)]="scheduleTransport" name="scheduleTransport" class="form-control" id="scheduleTransport" required>
                                 </div>
-                                <button type="submit" class="btn btn-default" (click)="show()">Change schedule</button>
+                                <button type="submit" class="btn btn-default" (click)="schedule(s.id)">Change schedule</button>
                             </form>
                             
                             <br/>
@@ -155,6 +153,11 @@ import {oneVoyage} from "./oneVoyage";
         color: black;
         background-color: white;
     }
+    
+    .getValue {
+        color: gray;
+        background-color: white;
+    }
   `],
 })
 export class DetailComponent implements OnInit {
@@ -165,7 +168,11 @@ export class DetailComponent implements OnInit {
     budget = oneVoyage.oneVoyage.budget;
     isPublic = oneVoyage.oneVoyage.isPublic;
 
-    voyageDay:Days[] = oneVoyage.oneVoyage.day;
+    voyageDay:Day[] = oneVoyage.oneVoyage.day;
+
+    scheduleBudget:number;
+    scheduleDestination:string;
+    scheduleTransport:string;
 
     ngOnInit() {
         if ( this.isLoged()) {
@@ -178,21 +185,53 @@ export class DetailComponent implements OnInit {
         return localStorage.getItem('Token') != null;
     }
     oneVoyageCall(v:Voyage): void {
-        let token = localStorage.getItem('Token');
-        let headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        });
-        let options = new RequestOptions({headers: headers});
-        this.http.get('http://localhost:11601/api/get/'+v.id, options).toPromise()
-            .then(response => {
-                console.log(response.json());
-                this.myVoyage = response.json();
-            });
+        // let token = localStorage.getItem('Token');
+        // let headers = new Headers({
+        //     'Content-Type': 'application/json',
+        //     'Authorization': 'Bearer ' + token
+        // });
+        // let options = new RequestOptions({headers: headers});
+        // this.http.get('http://localhost:11601/api/get/'+v.id, options).toPromise()
+        //     .then(response => {
+        //         console.log(response.json());
+        //         this.myVoyage = response.json();
+        //     });
     }
 
     show():void{
         console.log(this.title);
         console.log(oneVoyage.oneVoyage.title);
+    }
+
+    schedule(id:number):void{
+        console.log(id);
+
+        let s:Schedule;
+        // let ss:Schedule[] = this.voyageDay.filter(c => c.id == id);
+        // if (ss.length > 0) {
+        //     s = ss[0];
+        // }
+        console.log(s);
+
+
+        let newSchedule = new Schedule();
+        // if(this.scheduleBudget == null) {
+        //     newSchedule.budget = s.budget;
+        // } else{
+        //     newSchedule.budget = this.scheduleBudget;
+        // }
+        // if(this.scheduleDestination == null) {
+        //     newSchedule.destination = s.destination;
+        // }else {
+        //     newSchedule.destination = this.scheduleDestination;
+        // }
+        // if(this.scheduleTransport == null) {
+        //     newSchedule.transport = s.transport;
+        // }else{
+        //     newSchedule.transport = this.scheduleTransport;
+        // }
+
+        console.log(s);
+        console.log(newSchedule);
     }
 }
