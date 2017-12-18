@@ -15,6 +15,7 @@ var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
 var voyage_component_1 = require("./voyage/voyage.component");
 var app_service_1 = require("./service/app.service");
+var detail_component_1 = require("./detail/detail.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -28,8 +29,9 @@ AppModule = __decorate([
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
                 { path: 'voyage', component: voyage_component_1.VoyageComponent },
+                { path: 'detail', component: detail_component_1.DetailComponent },
             ])],
-        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, voyage_component_1.VoyageComponent],
+        declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, voyage_component_1.VoyageComponent, detail_component_1.DetailComponent],
         providers: [app_service_1.AppService],
         bootstrap: [app_component_1.AppComponent]
     })

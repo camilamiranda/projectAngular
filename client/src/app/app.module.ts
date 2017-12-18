@@ -9,6 +9,7 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {VoyageComponent} from "./voyage/voyage.component";
 import {AppService} from "./service/app.service";
+import {DetailComponent} from "./detail/detail.component";
 
 
 @NgModule({
@@ -18,8 +19,9 @@ import {AppService} from "./service/app.service";
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'voyage', component: VoyageComponent },
+      { path: 'detail', component: DetailComponent },
     ])],
-  declarations: [AppComponent, LoginComponent, RegisterComponent, VoyageComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, VoyageComponent, DetailComponent],
   providers: [ AppService ],
   bootstrap: [AppComponent]
 })
