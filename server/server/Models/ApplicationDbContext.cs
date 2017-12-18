@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -59,12 +60,12 @@ namespace server.Models
                     isPublic = true,
                     UserId = users[0].Id,
                     Budget = 3000,
-                    Day = new Day[]
+                    Day = new List<Day>
                     {
                         new Day
                         {
                             Id = "yb",
-                            schedule = new Schedule[]
+                            schedule = new List<Schedule>
                             {
                                 new Schedule
                                 {
@@ -77,7 +78,7 @@ namespace server.Models
                                         Id = "MetroId111",
                                         transport = "Metro"
                                     },
-                                    Activities = new Activity[]
+                                    Activities = new List<Activity>
                                     {
                                         new Activity
                                         {
@@ -102,7 +103,7 @@ namespace server.Models
                         new Day
                         {
                             Id = "yb2",
-                            schedule = new Schedule[]
+                            schedule = new List<Schedule>
                             {
                                 new Schedule
                                 {
@@ -115,7 +116,7 @@ namespace server.Models
                                         Id = "BusId111",
                                         transport = "Bus"
                                     },
-                                    Activities = new Activity[]
+                                    Activities = new List<Activity>
                                     {
                                         new Activity
                                         {

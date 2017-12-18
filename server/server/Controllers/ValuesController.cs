@@ -18,7 +18,9 @@ namespace server.Controllers
         [AllowAnonymous]
         public IEnumerable<Voyage> Get()
         {
-            var b = context.Voyages.ToList();
+            context.Configuration.ProxyCreationEnabled = false;
+            var b = context.Voyages.Include("Day.schedule.Transport").Include("Day.schedule.Activities")
+                .ToList();
             return b;
         }
 

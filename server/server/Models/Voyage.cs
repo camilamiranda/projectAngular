@@ -30,6 +30,8 @@ namespace server.Models
         [Required]
         public bool isPublic { get; set; }
 
-        public virtual Day[] Day { get; set; }
+        public bool isPublic2 { get; set; }
+
+        public virtual List<Day> Day { get; set; }
     }
 }
