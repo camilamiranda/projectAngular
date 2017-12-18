@@ -24,7 +24,7 @@ import { AgmCoreModule } from '@agm/core';
       { path: 'detail', component: DetailComponent },
     ]),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDHhH98KTylG0BM-WrKf9vm0MeEWvpszps'
+      apiKey: 'AIzaSyAhL-yPSfHxIOpLgUlhhj4YoiLRtpBxDsM'
     })],
   declarations: [AppComponent, LoginComponent, RegisterComponent, VoyageComponent, DetailComponent],
   providers: [ AppService ],

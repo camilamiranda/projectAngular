@@ -51,7 +51,7 @@ import {Activity} from "../model/activity";
                     </form>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <h3>Google Maps</h3>
                 <agm-map [latitude]="lat" [longitude]="lng">
                   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>

@@ -33,7 +33,7 @@ AppModule = __decorate([
                 { path: 'detail', component: detail_component_1.DetailComponent },
             ]),
             core_2.AgmCoreModule.forRoot({
-                apiKey: 'AIzaSyDHhH98KTylG0BM-WrKf9vm0MeEWvpszps'
+                apiKey: 'AIzaSyAhL-yPSfHxIOpLgUlhhj4YoiLRtpBxDsM'
             })],
         declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, voyage_component_1.VoyageComponent, detail_component_1.DetailComponent],
         providers: [app_service_1.AppService],
