@@ -16,6 +16,7 @@ var register_component_1 = require("./register/register.component");
 var voyage_component_1 = require("./voyage/voyage.component");
 var app_service_1 = require("./service/app.service");
 var detail_component_1 = require("./detail/detail.component");
+var core_2 = require("@agm/core");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -30,7 +31,10 @@ AppModule = __decorate([
                 { path: 'register', component: register_component_1.RegisterComponent },
                 { path: 'voyage', component: voyage_component_1.VoyageComponent },
                 { path: 'detail', component: detail_component_1.DetailComponent },
-            ])],
+            ]),
+            core_2.AgmCoreModule.forRoot({
+                apiKey: 'AIzaSyDHhH98KTylG0BM-WrKf9vm0MeEWvpszps'
+            })],
         declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, voyage_component_1.VoyageComponent, detail_component_1.DetailComponent],
         providers: [app_service_1.AppService],
         bootstrap: [app_component_1.AppComponent]

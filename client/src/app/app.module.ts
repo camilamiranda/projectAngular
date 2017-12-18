@@ -11,6 +11,8 @@ import {VoyageComponent} from "./voyage/voyage.component";
 import {AppService} from "./service/app.service";
 import {DetailComponent} from "./detail/detail.component";
 
+import { AgmCoreModule } from '@agm/core';
+
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule,
@@ -20,7 +22,10 @@ import {DetailComponent} from "./detail/detail.component";
       { path: 'register', component: RegisterComponent },
       { path: 'voyage', component: VoyageComponent },
       { path: 'detail', component: DetailComponent },
-    ])],
+    ]),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDHhH98KTylG0BM-WrKf9vm0MeEWvpszps'
+    })],
   declarations: [AppComponent, LoginComponent, RegisterComponent, VoyageComponent, DetailComponent],
   providers: [ AppService ],
   bootstrap: [AppComponent]

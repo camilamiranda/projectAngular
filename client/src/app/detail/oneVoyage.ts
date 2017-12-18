@@ -60,7 +60,7 @@ export const oneVoyage: Voyage = {
         {
             schedule:[
                 {
-                    id:"2",
+                    id:"1",
                     budget:100,
                     destination:"Paris",
                     transport:{

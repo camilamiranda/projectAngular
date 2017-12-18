@@ -6,6 +6,8 @@ import 'rxjs/add/operator/toPromise';
 import {Day} from "../model/day";
 import {oneVoyage} from "./oneVoyage";
 import {Schedule} from "../model/schedule";
+import {Transport} from "../model/transport";
+import {Activity} from "../model/activity";
 
 
 @Component({
@@ -21,32 +23,39 @@ import {Schedule} from "../model/schedule";
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <div class="voyage">
+                <div class="voyage" *ngIf="vvoyage">
+                    <h3>Voyage</h3>
                     <form>
                         <div class="form-group">
-                            <label for="title">Title</label>
+                            <label for="title">Title: {{vvoyage.title}}</label>
                             <input type="text" [(ngModel)]="title" name="title" class="form-control" id="title" required>
                         </div>
     
                         <div class="form-group">
-                            <label for="text">Duration</label>
+                            <label for="text">Duration: {{vvoyage.duration}}</label>
                             <input type="number" [(ngModel)]="duration" name="duration" class="form-control" id="duration" min="1" required>
                         </div>
     
                         <div class="form-group">
-                            <label for="text">Budget $</label>
+                            <label for="text">Budget: {{vvoyage.budget}} $</label>
                             <input type="number" [(ngModel)]="budget" name="budget" class="form-control" id="budget" required>
                         </div>
     
                         <div class="form-group">
-                            <label for="public">This is public / private</label>
+                            <label for="public">This is public: {{vvoyage.isPublic}}</label>
                             <input type="text" [(ngModel)]="isPublic" name="isPublic" class="form-control" id="public" required>
                         </div>
     
-                        <button type="submit" class="btn btn-default" (click)="show()">Test</button>
+                        <button type="submit" class="btn btn-default" (click)="changeVoyage(vvoyage.id)">Change Voyage</button>
 
                     </form>
                 </div>
+            </div>
+            <div class="col-md-2">
+                <h3>Google Maps</h3>
+                <agm-map [latitude]="lat" [longitude]="lng">
+                  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
             </div>
             <div class="col-md-4">
                 <div class="voyage" *ngFor="let d of voyageDay; let idx = index">
@@ -60,14 +69,15 @@ import {Schedule} from "../model/schedule";
                                     <input type="number" [(ngModel)]="scheduleBudget" name="scheduleBudget" class="form-control" id="scheduleBudget" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Destination">Destination : [{{s.destination}}] (enter new value)</label>
+                                    <label for="Destination">Destination: [{{s.destination}}] (enter new value)</label>
                                     <input type="text" [(ngModel)]="scheduleDestination" name="scheduleDestination" class="form-control" id="scheduleDestination" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Transport">Transport : [{{s.transport}}] (enter new value)</label>
-                                    <input type="text" [(ngModel)]="scheduleTransport" name="scheduleTransport" class="form-control" id="scheduleTransport" required>
+                                    <label for="Transport">Transport [{{s.transport.transport}}] : [{{s.transport.budget}}] (enter new value)</label>
+                                    <input type="text" [(ngModel)]="scheduleTransportTransport" name="scheduleTransportTransport" class="form-control" id="scheduleTransportTransport" required>
+                                    <input type="text" [(ngModel)]="scheduleTransportBudget" name="scheduleTransportBudget" class="form-control" id="scheduleTransportBudget" required>
                                 </div>
-                                <button type="submit" class="btn btn-default" (click)="schedule(s.id)">Change schedule</button>
+                                <button type="submit" class="btn btn-default" (click)="changeSchedule(s.id)">Change schedule</button>
                             </form>
                             
                             <br/>
@@ -75,22 +85,22 @@ import {Schedule} from "../model/schedule";
                                 <h4>Activity {{idx + 1}}</h4>
                                 <form>
                                     <div class="form-group">
-                                        <label for="Budget">Budget $</label>
+                                        <label for="Budget">Budget [{{a.budget}}] $</label>
                                         <input type="number" [(ngModel)]="activityBudget" name="activityBudget" class="form-control" id="activityBudget" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Address">Address</label>
+                                        <label for="Address">Address: [{{a.address}}]</label>
                                         <input type="text" [(ngModel)]="activityAddress" name="activityAddress" class="form-control" id="activityAddress" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Begin">Begin</label>
+                                        <label for="Begin">Begin [{{a.begin.toLocaleString()}}]</label>
                                         <input type="datetime-local" [(ngModel)]="activityBegin" name="activityBegin" class="form-control" id="activityBegin" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="End">End</label>
+                                        <label for="End">End [{{a.end.toLocaleString()}}]</label>
                                         <input type="datetime-local" [(ngModel)]="activityEnd" name="activityEnd" class="form-control" id="activityEnd" required>
                                     </div>
-                                    <button type="submit" class="btn btn-default" (click)="show()">Change activity</button>
+                                    <button type="submit" class="btn btn-default" (click)="changeActivity(a.id)">Change activity</button>
                                     <br/>
                                 </form>
                             </div>
@@ -158,11 +168,18 @@ import {Schedule} from "../model/schedule";
         color: gray;
         background-color: white;
     }
+    
+    agm-map {
+      height: 300px;
+    }
   `],
 })
 export class DetailComponent implements OnInit {
     // @Input() oneVoyage: Voyage
+    lat: number = 51.678418;
+    lng: number = 7.809007;
 
+    vvoyage = oneVoyage;
     title = oneVoyage.title;
     duration = oneVoyage.duration;
     budget = oneVoyage.budget;
@@ -172,12 +189,17 @@ export class DetailComponent implements OnInit {
 
     scheduleBudget:number;
     scheduleDestination:string;
-    scheduleTransport:string;
+    scheduleTransportTransport:string;
+    scheduleTransportBudget:number;
+
+    activityBudget:number;
+    activityAddress:string;
+    activityBegin:Date;
+    activityEnd:Date;
 
     ngOnInit() {
         if ( this.isLoged()) {
         }
-        console.log(oneVoyage);
     }
     constructor(private http: Http) {
     }
@@ -199,40 +221,110 @@ export class DetailComponent implements OnInit {
         //     });
     }
 
-    show():void{
-        console.log(this.title);
-        console.log(oneVoyage.title);
-    }
-
-    schedule(id:number):void{
-        console.log(id);
-
+    changeSchedule(id:string):void{
         let s:Schedule;
-        // let ss:Schedule[] = this.voyageDay.filter(c => c.id == id);
-        // if (ss.length > 0) {
-        //     s = ss[0];
-        // }
-        console.log(s);
+        let ss:Schedule[] = this.voyageDay[0].schedule.filter(c => c.id == id);
+        if (ss.length > 0) {
+            s = ss[0];
+        }
+
+        let t:Transport;
+        t = s.transport;
+
+        let newTrans:Transport;
+        newTrans = t;
+        if(this.scheduleTransportTransport != null) {
+            newTrans.transport = this.scheduleTransportTransport;
+        }
+        if(this.scheduleTransportBudget != null) {
+            newTrans.budget = this.scheduleTransportBudget;
+        }
 
 
         let newSchedule = new Schedule();
-        // if(this.scheduleBudget == null) {
-        //     newSchedule.budget = s.budget;
-        // } else{
-        //     newSchedule.budget = this.scheduleBudget;
-        // }
-        // if(this.scheduleDestination == null) {
-        //     newSchedule.destination = s.destination;
-        // }else {
-        //     newSchedule.destination = this.scheduleDestination;
-        // }
-        // if(this.scheduleTransport == null) {
-        //     newSchedule.transport = s.transport;
-        // }else{
-        //     newSchedule.transport = this.scheduleTransport;
-        // }
+        newSchedule.transport = newTrans;
+        if(this.scheduleBudget == null) {
+            newSchedule.budget = s.budget;
+        } else{
+            newSchedule.budget = this.scheduleBudget;
+        }
+        if(this.scheduleDestination == null) {
+            newSchedule.destination = s.destination;
+        }else {
+            newSchedule.destination = this.scheduleDestination;
+        }
 
-        console.log(s);
         console.log(newSchedule);
+
+        let token = localStorage.getItem('Token');
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        });
+        let options = new RequestOptions({headers: headers});
+        // this.http.get('http://localhost:11601/api/changeSchedule', JSON.stringify(newSchedule), options).toPromise()
+        //     .then(response => {
+        //         console.log(response.json());
+        //     });
+    }
+
+    changeActivity(id:string):void{
+        let a:Activity;
+        let as:Activity[] = this.voyageDay[0].schedule[0].activities.filter(c => c.id == id);
+        if (as.length > 0) {
+            a = as[0];
+        }
+
+        let newActivity = a;
+        if(this.activityBudget != null){
+            newActivity.budget = this.activityBudget;
+        }
+        if(this.activityAddress != null){
+            newActivity.address = this.activityAddress;
+        }
+        if(this.activityBegin != null){
+            let d = new Date(this.activityBegin);
+            newActivity.begin = d;
+        }
+        if(this.activityEnd != null){
+            let d = new Date(this.activityEnd);
+            newActivity.end = d;
+        }
+
+        console.log(newActivity);
+
+        let token = localStorage.getItem('Token');
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        });
+        // let options = new RequestOptions({headers: headers});
+        // this.http.get('http://localhost:11601/api/changeVoyage', JSON.stringify(newActivity), options).toPromise()
+        //     .then(response => {
+        //         console.log(response.json());
+        //     });
+    }
+
+    changeVoyage(id:string):void{
+        console.log(id);
+
+        let newVoyage = new Voyage();
+        newVoyage.title = this.title;
+        newVoyage.duration = this.duration;
+        newVoyage.budget = this.budget;
+        newVoyage.isPublic = this.isPublic;
+
+        console.log(newVoyage);
+
+        let token = localStorage.getItem('Token');
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        });
+        // let options = new RequestOptions({headers: headers});
+        // this.http.get('http://localhost:11601/api/changeVoyage', JSON.stringify(newVoyage), options).toPromise()
+        //     .then(response => {
+        //         console.log(response.json());
+        //     });
     }
 }
