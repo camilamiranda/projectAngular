@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
@@ -9,7 +10,7 @@ namespace server.Models
         [Key]
         public String Id { get; set; }
 
-        public virtual Schedule[]  schedule { get; set; }
+        public virtual List<Schedule> schedule { get; set; }
     }
 
     public class Schedule
@@ -23,7 +24,7 @@ namespace server.Models
 
         public virtual Transport Transport { get; set; }
         
-        public virtual Activity[] Activities { get; set; }
+        public virtual List<Activity> Activities { get; set; }
     }
 
     public class Activity
