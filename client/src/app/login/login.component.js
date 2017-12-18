@@ -15,10 +15,12 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 require("rxjs/add/operator/toPromise");
+var app_service_1 = require("../service/app.service");
 var LoginComponent = (function () {
-    function LoginComponent(http, route) {
+    function LoginComponent(http, route, appService) {
         this.http = http;
         this.route = route;
+        this.appService = appService;
         this.emailUtil = '';
         this.passwordUtil = '';
     }
@@ -26,16 +28,18 @@ var LoginComponent = (function () {
         console.log('login');
     };
     LoginComponent.prototype.login = function () {
+        var _this = this;
         var body = new http_1.URLSearchParams();
         body.set('grant_type', 'password');
         body.set('username', this.emailUtil);
         body.set('password', this.passwordUtil);
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         var options = new http_1.RequestOptions({ headers: headers });
-        this.http.post('http://localhost:11601/Token', body, options).toPromise()
+        this.http.post('http://localhost:13615/Token', body, options).toPromise()
             .then(function (response) {
             console.log(response.json());
             localStorage.setItem('Token', response.json().access_token);
+            _this.appService.isAuthenticated = true;
         });
     };
     return LoginComponent;
@@ -45,7 +49,7 @@ LoginComponent = __decorate([
         selector: 'loginComponent',
         template: "\n    <div>\n          <h2>Email</h2>\n          <input class=\"form-control\" [(ngModel)]=\"emailUtil\" placeholder=\"email\"/>\n      </div>\n      <div>\n          <h2>Password</h2>\n          <input class=\"form-control\" [(ngModel)]=\"passwordUtil\" placeholder=\"password\"/>\n      </div>\n      \n    <div class=\"row\">\n      <div>\n        <button class=\"btn btn-default\" (click)=\"login()\" [routerLink]=\"['/','voyage']\">Authentification</button>\n      </div>\n    </div>\n    ",
     }),
-    __metadata("design:paramtypes", [http_1.Http, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [http_1.Http, router_1.ActivatedRoute, app_service_1.AppService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

@@ -34,7 +34,7 @@ var RegisterComponent = (function () {
         };
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
-        this.http.post('http://localhost:11601/api/Account/Register', JSON.stringify(data), options).toPromise()
+        this.http.post('http://localhost:13615/api/Account/Register', JSON.stringify(data), options).toPromise()
             .then(function (response) { });
     };
     return RegisterComponent;

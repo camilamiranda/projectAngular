@@ -3,6 +3,5 @@
  */
 export class User {
     id: number;
-    
     budget: number;
 }

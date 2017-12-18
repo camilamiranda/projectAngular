@@ -14,6 +14,7 @@ var app_component_1 = require("./app.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
 var voyage_component_1 = require("./voyage/voyage.component");
+var app_service_1 = require("./service/app.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -29,7 +30,7 @@ AppModule = __decorate([
                 { path: 'voyage', component: voyage_component_1.VoyageComponent },
             ])],
         declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, voyage_component_1.VoyageComponent],
-        providers: [],
+        providers: [app_service_1.AppService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

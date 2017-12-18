@@ -8,6 +8,7 @@ import { AppComponent }  from './app.component';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {VoyageComponent} from "./voyage/voyage.component";
+import {AppService} from "./service/app.service";
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import {VoyageComponent} from "./voyage/voyage.component";
       { path: 'voyage', component: VoyageComponent },
     ])],
   declarations: [AppComponent, LoginComponent, RegisterComponent, VoyageComponent],
-  providers: [ ],
+  providers: [ AppService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

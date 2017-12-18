@@ -6,6 +6,7 @@ import {Http, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 import { ActivatedRoute } from '@angular/router';
 
 import 'rxjs/add/operator/toPromise';
+import {AppService} from "../service/app.service";
 
 @Component({
     selector: 'loginComponent',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
     emailUtil = '';
     passwordUtil = '';
 
-    constructor(private http: Http, private route: ActivatedRoute) { }
+    constructor(private http: Http, private route: ActivatedRoute, private appService: AppService) { }
 
     ngOnInit(): void {
         console.log('login');
@@ -44,10 +45,11 @@ export class LoginComponent implements OnInit {
 
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({headers: headers});
-        this.http.post('http://localhost:11601/Token', body, options).toPromise()
+        this.http.post('http://localhost:13615/Token', body, options).toPromise()
             .then(response => {
                 console.log(response.json());
                 localStorage.setItem('Token', response.json().access_token);
+                this.appService.isAuthenticated = true;
             });
     }
 

@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({headers: headers});
 
-        this.http.post('http://localhost:11601/api/Account/Register', JSON.stringify(data), options).toPromise()
+        this.http.post('http://localhost:13615/api/Account/Register', JSON.stringify(data), options).toPromise()
             .then(response => { });
     }
 

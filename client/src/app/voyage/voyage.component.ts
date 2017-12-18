@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Voyage} from '../model/voyage';
-import {Destination} from '../model/destination';
+//import {Destination} from '../model/destination';
 import {Http, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
@@ -26,11 +26,11 @@ import 'rxjs/add/operator/toPromise';
                             </tr>
                             <tr>
                                 <th><i>User:</i> {{v.userID}}</th>
-                                <th><i>Days:</i> {{v.days}}</th>
+                                <th><i>Days:</i> {{v.duration}}</th>
                                 <th><i>IsPublic:</i> {{v.isPublic}}</th>
                             </tr>
                             <tr>
-                                <th colspan="3"><i>Schedule:</i> {{v.schedule}}</th>
+                                <th colspan="3"><i>Schedule:</i> {{v.day}}</th>
                             </tr>
                         </table>
                     </div>
@@ -70,7 +70,7 @@ import 'rxjs/add/operator/toPromise';
 
                         <div class="form-group">
                             <label for="text">Number of days</label>
-                            <input type="number" [(ngModel)]="days" name="days" class="form-control" id="days" min="1" required>
+                            <input type="number" [(ngModel)]="duration" name="days" class="form-control" id="days" min="1" required>
                         </div>
 
                         <div class="form-group">
@@ -80,7 +80,7 @@ import 'rxjs/add/operator/toPromise';
 
                         <div class="form-group">
                             <label for="public">This is public / private</label>
-                            <input type="text" [(ngModel)]="isPublic" name="isPublic" class="form-control" id="public" required>
+                            <input type="checkbox" [(ngModel)]="isPublic" name="isPublic" class="form-control" id="public" required>
                         </div>
 
                     </form>
@@ -157,7 +157,7 @@ import 'rxjs/add/operator/toPromise';
 export class VoyageComponent implements OnInit {
     title = '';
     isPublic: boolean;
-    days: number;
+    duration: number;
     budget: number;
     publicVoyages: Voyage[] = [
         {
@@ -165,8 +165,9 @@ export class VoyageComponent implements OnInit {
             isPublic: true,
             userID: '1',
             title: 'voyage1',
-            days: 7,
-            budget: 100
+            duration: 7,
+            budget: 100,
+            day: []
         }
     ];
     myVoyage: Voyage[] = [
@@ -175,11 +176,12 @@ export class VoyageComponent implements OnInit {
             isPublic: false,
             userID: '1',
             title: 'voyage1',
-            days: 7,
-            budget: 100
+            duration: 7,
+            budget: 100,
+            day: []
         }
     ];
-    destinations: Destination[] = [];
+    //destinations: Destination[] = [];
     failed: boolean = false;
 
     ngOnInit() {
@@ -217,12 +219,12 @@ export class VoyageComponent implements OnInit {
             });
     }
 
-    addDestination(desti: string, ds: number): void{
+    /*addDestination(desti: string, ds: number): void{
         let newDes = new Destination;
         newDes.destination = desti;
         newDes.days = ds;
         this.destinations.push(newDes);
-    }
+    }*/
 
     addVoyage(): void {
         if (this.isLoged()) {
@@ -231,7 +233,7 @@ export class VoyageComponent implements OnInit {
             let newVoyage = new Voyage();
             newVoyage.title = this.title;
             newVoyage.isPublic = this.isPublic;
-            newVoyage.days = this.days;
+            newVoyage.duration = this.duration;
             newVoyage.budget = this.budget;
 
 
