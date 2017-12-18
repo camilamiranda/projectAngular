@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Voyage} from '../model/voyage';
 import {Http, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import {Day} from "../model/day";
+import {oneVoyage} from "./oneVoyage";
 
 
 @Component({
@@ -14,44 +16,87 @@ import 'rxjs/add/operator/toPromise';
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <div class="bgimg">
 
+
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="voyage" *ngIf="oneVoyage">
-                    <h3>All voyage</h3>
-                    <table style="width:100%;">
-                        <tr>
-                            <th colspan="2"><i>Title:</i> {{v.title}}</th>
-                            <th><i>Budget:</i> {{v.budget}} $</th>
-                        </tr>
-                        <tr>
-                            <th><i>User:</i> {{v.userID}}</th>
-                            <th><i>Days:</i> {{v.duration}}</th>
-                            <th><i>IsPublic:</i> {{v.isPublic}}</th>
-                        </tr>
-                        <tr>
-                            <th colspan="3"><i>Schedule:</i> {{v.day}}</th>
-                        </tr>
-                    </table>
+            <div class="col-md-2">
+                <div class="voyage">
+                    <form>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" [(ngModel)]="title" name="title" class="form-control" id="title" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="text">Duration</label>
+                            <input type="number" [(ngModel)]="duration" name="duration" class="form-control" id="duration" min="1" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="text">Budget $</label>
+                            <input type="number" [(ngModel)]="budget" name="budget" class="form-control" id="budget" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="public">This is public / private</label>
+                            <input type="text" [(ngModel)]="isPublic" name="isPublic" class="form-control" id="public" required>
+                        </div>
+    
+                        <button type="submit" class="btn btn-default" (click)="show()">Test</button>
+
+                    </form>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="voyage" *ngFor="let v of myVoyage">
-                    <h3>My voyage</h3>
-                    <table style="width:100%;">
-                        <tr>
-                            <th colspan="2"><i>Title:</i> {{v.title}}</th>
-                            <th><i>Budget:</i> {{v.budget}} $</th>
-                        </tr>
-                        <tr>
-                            <th><i>User:</i> {{v.userID}}</th>
-                            <th><i>Days:</i> {{v.days}}</th>
-                            <th><i>IsPublic:</i> {{v.isPublic}}</th>
-                        </tr>
-                        <tr>
-                            <th colspan="3"><i>Schedule:</i> {{v.schedule}}</th>
-                        </tr>
-                    </table>
+            <div class="col-md-4">
+                <div class="voyage" *ngFor="let d of voyageDay; let idx = index">
+                    <h3>Day {{idx + 1}}</h3>
+                    
+                    <div class="schedule" *ngFor="let s of d.schedule; let idx = index">
+                        <h4>Schedule {{idx + 1}}</h4>      
+                            <form>
+                                <div class="form-group">
+                                    <label for="Budget">Budget $</label>
+                                    <div class="getValue">
+                                    <p> {{s.budget}} </p>
+                                    </div>
+                                    <input type="number" [(ngModel)]="scheduleBudget" name="scheduleBudget" class="form-control" id="scheduleBudget" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Destination">Destination</label>
+                                    <input type="text" [(ngModel)]="scheduleDestination" name="scheduleDestination" class="form-control" id="scheduleDestination" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Transport">Transport</label>
+                                    <input type="text" [(ngModel)]="scheduleTransport" name="scheduleTransport" class="form-control" id="scheduleTransport" required>
+                                </div>
+                                <button type="submit" class="btn btn-default" (click)="show()">Change schedule</button>
+                            </form>
+                            
+                            <br/>
+                            <div class="activity" *ngFor="let a of s.activities; let idx = index">
+                                <h4>Activity {{idx + 1}}</h4>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="Budget">Budget $</label>
+                                        <input type="number" [(ngModel)]="activityBudget" name="activityBudget" class="form-control" id="activityBudget" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Address">Address</label>
+                                        <input type="text" [(ngModel)]="activityAddress" name="activityAddress" class="form-control" id="activityAddress" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Begin">Begin</label>
+                                        <input type="datetime-local" [(ngModel)]="activityBegin" name="activityBegin" class="form-control" id="activityBegin" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="End">End</label>
+                                        <input type="datetime-local" [(ngModel)]="activityEnd" name="activityEnd" class="form-control" id="activityEnd" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-default" (click)="show()">Change activity</button>
+                                    <br/>
+                                </form>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,14 +136,38 @@ import 'rxjs/add/operator/toPromise';
         border: 4px solid white;
         border-radius: 5px;
     }
+    
+    .schedule {
+        padding-right: 5px;
+        padding-left: 5px;
+        border: 2px solid white;
+        border-radius: 5px;
+    }
+    
+    .activity {
+        margin: 15px;
+    
+        padding-right: 5px;
+        padding-left: 5px;
+        border: 1px solid white;
+        border-radius: 5px;
+        
+        color: black;
+        background-color: white;
+    }
   `],
 })
 export class DetailComponent implements OnInit {
+    // @Input() oneVoyage: Voyage
 
-    
+    title = oneVoyage.oneVoyage.title;
+    duration = oneVoyage.oneVoyage.duration;
+    budget = oneVoyage.oneVoyage.budget;
+    isPublic = oneVoyage.oneVoyage.isPublic;
+
+    voyageDay:Days[] = oneVoyage.oneVoyage.day;
 
     ngOnInit() {
-        // this.allPublicVoyage();
         if ( this.isLoged()) {
         }
     }
@@ -120,5 +189,10 @@ export class DetailComponent implements OnInit {
                 console.log(response.json());
                 this.myVoyage = response.json();
             });
+    }
+
+    show():void{
+        console.log(this.title);
+        console.log(oneVoyage.oneVoyage.title);
     }
 }
