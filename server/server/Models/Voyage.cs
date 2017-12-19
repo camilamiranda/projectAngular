@@ -30,8 +30,24 @@ namespace server.Models
         [Required]
         public bool isPublic { get; set; }
 
-        public bool isPublic2 { get; set; }
-
         public virtual List<Day> Day { get; set; }
+    }
+
+    public class newVoyage
+    {
+        [Required]
+        [MinLength(1)]
+        public String Title { get; set; }
+
+        [Required]
+        [Range(minimum: 0, maximum: 365)]
+        public int Duration { get; set; }
+
+        [Required]
+        [Range(minimum: 0, maximum: Double.MaxValue)]
+        public Double Budget { get; set; }
+
+        [Required]
+        public bool isPublic { get; set; }
     }
 }

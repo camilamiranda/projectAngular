@@ -19,7 +19,9 @@ namespace server.Controllers
         public IEnumerable<Voyage> Get()
         {
             context.Configuration.ProxyCreationEnabled = false;
-            var b = context.Voyages.Include("Day.schedule.Transport").Include("Day.schedule.Activities")
+            var b = context.Voyages
+                .Include("Day.schedule.Transport")
+                .Include("Day.schedule.Activities")
                 .ToList();
             return b;
         }
@@ -27,18 +29,35 @@ namespace server.Controllers
         [Route("api/all/{id}")]
         public Voyage Get(string id)
         {
-            throw new NotImplementedException();
+            var result = context.Voyages
+                .Include("Day.schedule.Transport")
+                .Include("Day.schedule.Activities")
+                .SingleOrDefault(v => v.Id == id);
+            return result;
         }
 
         // POST api/values
         [HttpPost]
         [Route("api/new")]
-        public void Post([FromBody]Voyage value)
+        public String Post([FromBody]newVoyage value)
         {
             if (ModelState.IsValid)
             {
-                context.Voyages.Add(value);
+                Voyage vo = new Voyage
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Title = value.Title,
+                    Duration = value.Duration,
+                    Budget = value.Budget,
+                    isPublic = value.isPublic
+                };
+
+                context.Voyages.Add(vo);
+                context.SaveChanges();
+                return vo.Id;
             }
+
+            return null;
         }
     }
 }

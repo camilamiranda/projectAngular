@@ -109,6 +109,13 @@ import {forEach} from "@angular/router/src/utils/collection";
                     </div>
                 </div>
             </div>
+            
+            <div class="col-md-2">
+                <h3>Activities</h3>
+                <agm-map [latitude]="lat" [longitude]="lng">
+                  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+            </div>
         </div>
         <br/>
         <br/>
