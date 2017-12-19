@@ -30,7 +30,7 @@ AppModule = __decorate([
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
                 { path: 'voyage', component: voyage_component_1.VoyageComponent },
-                { path: 'detail', component: detail_component_1.DetailComponent },
+                { path: 'detail/:id', component: detail_component_1.DetailComponent }
             ]),
             core_2.AgmCoreModule.forRoot({
                 apiKey: 'AIzaSyAhL-yPSfHxIOpLgUlhhj4YoiLRtpBxDsM'

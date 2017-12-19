@@ -18,11 +18,11 @@ import 'rxjs/add/operator/toPromise';
     <div class="container">
         <div class="row">
             <div class="col-md-6">
+                <h3>All voyage</h3>
                 <div class="voyage" *ngFor="let v of publicVoyages">
-                    <h3>All voyage</h3>
                     <table style="width:100%;">
                         <tr>
-                            <th colspan="2"><i>Title:</i> {{v.title}}</th>
+                            <th colspan="2"><a routerLink="../detail/{{v.id}}"><i>Title:</i> {{v.title}}</a></th>
                             <th><i>Budget:</i> {{v.budget}} $</th>
                         </tr>
                         <tr>
@@ -37,11 +37,11 @@ import 'rxjs/add/operator/toPromise';
                 </div>
             </div>
             <div class="col-md-6">
+                <h3>My voyage</h3>
                 <div class="voyage" *ngFor="let v of myVoyage">
-                    <h3>My voyage</h3>
                     <table style="width:100%;">
                         <tr>
-                            <th colspan="2"><i>Title:</i> {{v.title}}</th>
+                            <th colspan="2"><a routerLink="../detail/{{v.id}}"><i>Title:</i> {{v.title}}</a></th>
                             <th><i>Budget:</i> {{v.budget}} $</th>
                         </tr>
                         <tr>

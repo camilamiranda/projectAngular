@@ -21,7 +21,7 @@ import { AgmCoreModule } from '@agm/core';
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'voyage', component: VoyageComponent },
-      { path: 'detail', component: DetailComponent },
+      { path: 'detail/:id', component: DetailComponent }
     ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAhL-yPSfHxIOpLgUlhhj4YoiLRtpBxDsM'
