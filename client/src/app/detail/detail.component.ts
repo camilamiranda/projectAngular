@@ -8,6 +8,8 @@ import {oneVoyage} from "./oneVoyage";
 import {Schedule} from "../model/schedule";
 import {Transport} from "../model/transport";
 import {Activity} from "../model/activity";
+import any = jasmine.any;
+import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({
@@ -53,8 +55,8 @@ import {Activity} from "../model/activity";
             </div>
             <div class="col-md-4">
                 <h3>Google Maps</h3>
-                <agm-map [latitude]="lat" [longitude]="lng">
-                  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                <agm-map [latitude]="this.latitude[0]" [longitude]="this.longitude[0]">
+                  <agm-marker *ngFor="let latitude of this.latitude; let i = index" [latitude]="latitude" [longitude]="this.longitude[i]"></agm-marker>
                 </agm-map>
             </div>
             <div class="col-md-4">
@@ -176,8 +178,8 @@ import {Activity} from "../model/activity";
 })
 export class DetailComponent implements OnInit {
     // @Input() oneVoyage: Voyage
-    lat: number = 51.678418;
-    lng: number = 7.809007;
+    latitude: number[] = new Array();
+    longitude: number[] = new Array();
 
     vvoyage = oneVoyage;
     title = oneVoyage.title;
@@ -199,6 +201,7 @@ export class DetailComponent implements OnInit {
 
     ngOnInit() {
         if ( this.isLoged()) {
+            this.getCoord();
         }
     }
     constructor(private http: Http) {
@@ -326,5 +329,24 @@ export class DetailComponent implements OnInit {
         //     .then(response => {
         //         console.log(response.json());
         //     });
+    }
+
+    getCoord(){
+        for (let day of this.voyageDay){
+            for(let schedule of day.schedule){
+                for(let activity of schedule.activities){
+                    this.http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyA4Ir550YaoKaIj9OiBlScsOWnPa9GT2So&address='+activity.address)
+                        .toPromise().then(data => {
+                            this.latitude.push(data.json().results[0].geometry.location.lat);
+                            this.longitude.push(data.json().results[0].geometry.location.lng);
+                        }
+                    );
+                }
+            }
+        }
+
+
+
+        this.http.get('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyA4Ir550YaoKaIj9OiBlScsOWnPa9GT2So&address=');
     }
 }

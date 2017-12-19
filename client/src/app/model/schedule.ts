@@ -1,7 +1,7 @@
 import {Transport} from './transport';
 import {Activity} from './activity';
 export class Schedule {
-    id:string;
+    id: string;
     budget: number;
     destination: string;
     transport: Transport;

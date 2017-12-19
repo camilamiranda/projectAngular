@@ -4,4 +4,5 @@ export class Activity {
     budget: number;
     begin: Date;
     end: Date;
+
 }

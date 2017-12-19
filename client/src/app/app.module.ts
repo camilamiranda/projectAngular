@@ -4,6 +4,8 @@ import { FormsModule }   from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from "@angular/router";
 
+import { AgmCoreModule } from "@agm/core";
+
 import { AppComponent }  from './app.component';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
@@ -11,11 +13,12 @@ import {VoyageComponent} from "./voyage/voyage.component";
 import {AppService} from "./service/app.service";
 import {DetailComponent} from "./detail/detail.component";
 
-import { AgmCoreModule } from '@agm/core';
-
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpModule,
+  imports: [
+      BrowserModule,
+      FormsModule,
+      HttpModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },

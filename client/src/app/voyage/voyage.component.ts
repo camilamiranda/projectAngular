@@ -4,10 +4,11 @@ import {Voyage} from '../model/voyage';
 import {Http, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import {Day} from "../model/day";
 
 
 @Component({
-    selector: 'my-app',
+    selector: 'detailComponent',
     template: `
 
 <br/>
@@ -182,7 +183,7 @@ export class VoyageComponent implements OnInit {
     failed: boolean = false;
 
     ngOnInit() {
-        // this.allPublicVoyage();
+        this.allPublicVoyage();
         if ( this.isLoged()) {
             this.myVoyageCall();
         }
@@ -195,7 +196,7 @@ export class VoyageComponent implements OnInit {
     }
 
     allPublicVoyage(): void {
-        this.http.get('http://localhost:11601/api/all').toPromise()
+        this.http.get('http://localhost:13615/api/all').toPromise()
             .then(response => {
                 console.log(response.json());
 
@@ -209,7 +210,7 @@ export class VoyageComponent implements OnInit {
             'Authorization': 'Bearer ' + token
         });
         let options = new RequestOptions({headers: headers});
-        this.http.get('http://localhost:11601/api/get', options).toPromise()
+        this.http.get('http://localhost:13615/api/get', options).toPromise()
             .then(response => {
                 console.log(response.json());
                 this.myVoyage = response.json();
@@ -232,16 +233,17 @@ export class VoyageComponent implements OnInit {
             newVoyage.isPublic = this.isPublic;
             newVoyage.duration = this.duration;
             newVoyage.budget = this.budget;
-
+            newVoyage.day = new Array();
 
             let token = localStorage.getItem('Token');
+            newVoyage.userID = token;
             let headers = new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             });
             let options = new RequestOptions({headers: headers});
 
-            // this.http.post("http://localhost:11601/api/new", JSON.stringify(newVoyage), options).toPromise();
+            this.http.post('http://localhost:13615/api/new', JSON.stringify(newVoyage), options).toPromise();
 
             console.log(newVoyage);
         } else {

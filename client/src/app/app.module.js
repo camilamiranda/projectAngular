@@ -10,13 +10,13 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
+var core_2 = require("@agm/core");
 var app_component_1 = require("./app.component");
 var login_component_1 = require("./login/login.component");
 var register_component_1 = require("./register/register.component");
 var voyage_component_1 = require("./voyage/voyage.component");
 var app_service_1 = require("./service/app.service");
 var detail_component_1 = require("./detail/detail.component");
-var core_2 = require("@agm/core");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -24,7 +24,10 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule,
+        imports: [
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            http_1.HttpModule,
             router_1.RouterModule.forRoot([
                 { path: '', redirectTo: '/', pathMatch: 'full' },
                 { path: 'login', component: login_component_1.LoginComponent },
@@ -34,7 +37,8 @@ AppModule = __decorate([
             ]),
             core_2.AgmCoreModule.forRoot({
                 apiKey: 'AIzaSyAhL-yPSfHxIOpLgUlhhj4YoiLRtpBxDsM'
-            })],
+            })
+        ],
         declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent, voyage_component_1.VoyageComponent, detail_component_1.DetailComponent],
         providers: [app_service_1.AppService],
         bootstrap: [app_component_1.AppComponent]
