@@ -29,6 +29,7 @@ namespace server.Controllers
         [Route("api/all/{id}")]
         public Voyage Get(string id)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             var result = context.Voyages
                 .Include("Day.schedule.Transport")
                 .Include("Day.schedule.Activities")
@@ -58,6 +59,15 @@ namespace server.Controllers
             }
 
             return null;
+        }
+
+        [Route("api/changeSchedule/{id}")]
+        public void ChangeSchedule(string id, newSchedule sch)
+        {
+            context.Configuration.ProxyCreationEnabled = true;
+            var voyage = context.Voyages
+                .SingleOrDefault(v => v.Id == id);
+
         }
     }
 }
